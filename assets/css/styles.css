@@ -1,0 +1,704 @@
+/*=============== GOOGLE FONTS ===============*/
+@import url("https://fonts.googleapis.com/css2?family=Aclonica&family=Montserrat:wght@100..900&display=swap");
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+  --header-height: 3.5rem;
+
+  /*========== Colors ==========*/
+  /*Color mode HSL(hue, saturation, lightness)*/
+  --first-color: hsl(45, 99%, 55%);
+  --first-color-alt: hsl(45, 99%, 48%);
+  --second-color: hsl(22, 100%, 8%);
+  --white-color: hsl(34, 100%, 96%);
+  --title-color: hsl(22, 100%, 8%);
+  --text-color: hsl(22, 24%, 32%);
+  --text-color-light: hsl(23, 16%, 40%);
+  --body-color: hsl(34, 100%, 92%);
+  --body-color-alt: hsl(34, 100%, 88%);
+  --container-color: hsl(34, 100%, 96%);
+  --shadow-small-img: drop-shadow(0 4px 16px hsla(22, 100%, 8%, .2));
+  --shadow-big-img: drop-shadow(0 8px 24px hsla(22, 100%, 8%, .2));
+
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: "Montserrat", sans-serif;
+  --second-font: "Aclonica", sans-serif;
+  --biggest-font-size: 3rem;
+  --h1-font-size: 1.5rem;
+  --h2-font-size: 1.25rem;
+  --h3-font-size: 1rem;
+  --normal-font-size: .938rem;
+  --small-font-size: .813rem;
+
+  /*========== Font weight ==========*/
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semi-bold: 600;
+
+  /*========== z index ==========*/
+  --z-tooltip: 10;
+  --z-fixed: 100;
+}
+
+/*========== Responsive typography ==========*/
+@media screen and (min-width: 1150px) {
+  :root {
+    --biggest-font-size: 4.5rem;
+    --h1-font-size: 2.25rem;
+    --h2-font-size: 1.5rem;
+    --h3-font-size: 1.25rem;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+  }
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  background-color: var(--body-color);
+  color: var(--text-color);
+}
+
+h1, h2, h3, h4 {
+  color: var(--title-color);
+  font-family: var(--second-font);
+  font-weight: var(--font-regular);
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/*=============== REUSABLE CSS CLASSES ===============*/
+.container {
+  max-width: 1120px;
+  margin-inline: 1.5rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.section {
+  padding-block: 5rem 1rem;
+}
+
+.section__title {
+  text-align: center;
+  font-size: var(--h1-font-size);
+  margin-bottom: 2rem;
+}
+
+.main {
+  overflow: hidden;
+}
+
+/*=============== HEADER & NAV ===============*/
+.header{
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: var(--body-color);
+  z-index: var(--z-fixed);
+  transition: box-shadow .4s;
+}
+.nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 100px;
+}
+.nav .nav__logo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var( --second-color);
+  font-weight: var(--font-semi-bold);
+}
+.nav .nav__logo img{
+  width: 30px;
+  background-color: var(--first-color);
+  padding: 5px;
+  border-radius: 10px 10px 5px 5px;
+}
+
+.nav__menu .nav__list{
+  display: flex;
+  align-items: center;
+}
+
+
+.nav__link{
+  color: var(--title-color);
+  font-weight: var(--font-semi-bold);
+  margin: 20px;
+  position: relative;
+}
+
+.nav__link::before{
+  content: '';
+  width:0;
+  height: 3px;
+  background-color: var(--first-color);
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  transition: width .4s;
+}
+
+.nav__link:hover::before{
+  width: 60%;
+}
+
+.nav__close,
+.nav__toggle{
+  display: flex;
+  font-size: 1.5rem;
+  color: var(--title-color);
+  cursor: pointer;
+  display: none;
+}
+
+
+/* Navigation for mobile devices */
+
+@media screen and (max-width: 1150px) {
+  .nav{
+    margin: 20px;
+  }
+  .nav__menu{
+    position: fixed;
+    top: -100% ;
+    left: 0;
+    background-color: var(--body-color);
+    width: 100%;
+    padding-block: 4.5rem 3.5rem;
+    box-shadow: 0 4rem 16rem hsla(22, 100%, 8%, .2);
+    transition: top .4s;
+  }
+  .left{
+    top: 0 ;
+  }
+  .nav__list{
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+    position: relative;
+  }
+
+  .nav__close,
+.nav__toggle{
+  display: block;
+}
+
+}
+
+.nav__close{
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+}
+
+
+
+
+/* Show menu */
+
+
+/* Add shadow header */
+.shadow_header{
+  box-shadow: 0 4px 16px hsla(22 , 100% , 8% , .2);
+}
+
+/* Active link */
+
+
+/*=============== HOME ===============*/
+  .home{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 70px;
+  }
+
+  .home_text{
+    width: 30%;
+    margin-left: 100px;
+    position: relative;
+  }
+
+  .home_text .home_title{
+    font-size: 50px;
+    font-weight: 700;
+    margin: 20px 0;
+  }
+
+  .home_text .home_p{
+    line-height: 1rem;
+    font-size: 14px;
+    letter-spacing: .5px;
+    margin-bottom: 30px;
+  }
+
+  .home_text a button{
+    outline: none;
+    border: none;
+    padding: 12px 30px;
+    background-color: var(--first-color-alt);
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .4s;
+  }
+
+  .home_text a button:hover{
+    box-shadow: 0 8px 24px hsla(22, 100%, 8%, .2);
+
+  }
+
+  .home_text .sticker-potatoes{
+    rotate: 15deg;
+    display: inline-flex;
+    margin-left: 30px;
+  }
+
+  .home_images{
+    margin-right: 250px;
+    position: relative;
+    display: grid;
+    justify-items: center;
+    justify-self: center;
+  }
+
+  .home_images .home-burger{
+    width: 420px;
+    z-index: 2;
+  }
+
+  .home_images .home-burger{
+    filter: var(--shadow-small-img);
+  }
+
+  .home_images .home-dish{
+    max-width: initial;
+    width: 450px;
+    position: absolute;
+    bottom: -2.5rem;
+  }
+
+  .home_images .home-lettuce_1,
+  .home-lettuce_2,
+  .home-potato_1,
+  .home-potato_2,
+  .home-tomato_1,
+  .home-tomato_2{
+    position: absolute;
+    z-index: 3;
+    width: 50px;
+  }
+
+  .home-tomato_1{
+    position: absolute;
+    bottom: -2rem;
+    left: 7rem;
+  }
+
+  .home-tomato_2{
+    position: absolute;
+    top: -2rem;
+    right: 7rem;;
+  }
+
+  .home-potato_1{
+    position: absolute;
+    top: 2rem;
+    left: 0;
+  }
+
+  .home-potato_2{
+    position: absolute;
+    bottom: 1rem;
+    right: 0;
+  }
+
+  .home-lettuce_1{
+    position: absolute;
+    bottom: 1rem;
+    left: -1rem;
+  }
+
+  .home-lettuce_2{
+    position: absolute;
+    top: 4rem;
+    right: -2rem;
+    rotate: 90deg;
+  }
+
+  @media screen and (max-width: 1150px) {
+    .home{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 0px;
+    }
+
+    
+  .home_text{
+    width: 90%;
+    margin-left: 0px;
+    text-align: center;
+    position: relative;
+  }
+
+  .home_images{
+    margin-right: 0px;
+    margin-top: 100px;
+  }
+
+  }
+
+
+/*=============== BUTTON ===============*/
+
+
+/*=============== RECIPE ===============*/
+
+.recipe_h{
+  text-align: center;
+  font-weight: 900;
+  font-size: 40px;
+  margin: 40px 0;
+}
+
+.recipe_images{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 100px;
+}
+
+.recipe_image_1 .re_img_1,
+.re_img_2,
+.re_img_3,
+.re_img_4,
+.re_img_5{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 40px 0;
+
+}
+
+.recipe_image_1 .re_img_1 img,
+.re_img_2 img,
+.re_img_3 img,
+.re_img_4 img,
+.re_img_5 img{
+  width: 100px;
+  background-color: var(--first-color-alt);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.img_text h5{
+  font-weight: 800;
+  color: var(--second-color);
+  margin-bottom: 5px;
+}
+
+.img_text p{
+  font-size: 13px;
+  color: var(--second-font);
+  font-weight: 700;
+}
+
+
+
+.recipe_image_2 img{
+  max-width: 300px;
+}
+
+
+/*=============== POPULAR ===============*/
+.popular{
+  width: 100%;
+  background-color: var(--body-color-alt);
+  margin-top: 100px;
+}
+
+.popular_cards{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  row-gap: 100px;
+  margin: 20px 200px;
+
+}
+
+.popular_card{
+  width: 30%;
+  background-color: var(--first-color-alt);
+  border: 5px solid white;
+  border-radius: 20px;
+  padding: 6rem .75rem 1rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.popular_card img{
+  max-width: 150px;
+  position: absolute;
+  top: -3rem;
+  left: 3rem;
+  margin: auto;
+  transition: all .5s;
+}
+
+.popular_card img:hover{
+  transform: scale(1.1);
+}
+
+.popular_card h1{
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.popular_card span{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.popular_card span i{
+  font-size: 1.4rem;
+  background-color: black;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+}
+
+@media screen and (max-width: 1050px) {
+  .popular_cards{
+  display: flex;
+    flex-direction: column;
+  gap: 0px;
+  row-gap: 100px;
+  margin:0px;
+}
+
+.popular_card{
+  width: 40%;
+}
+
+.popular_card img{
+  position: absolute;
+  top: -3rem;
+  left: 7rem;
+  margin: auto;
+}
+}
+
+@media screen and (max-width: 800px) {
+.popular_card{
+  width: 60%;
+}
+
+}
+
+
+@media screen and (max-width: 600px) {
+  .popular_card{
+    width: 80%;
+  }
+
+  .popular_card img{
+    position: absolute;
+    top: -3rem;
+    left: 3rem;
+    margin: auto;
+  }
+  
+  }
+
+
+/*=============== DELIVERY ===============*/
+
+
+/*=============== CONTACT ===============*/
+.contact_cards{
+  width: 70%;
+  margin: auto;
+  background-color: var(--second-color);
+  border-radius: 20px;
+}
+
+.contact_card{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  position: relative;
+  margin: 0 30px;
+}
+
+.contact_h{
+  color: white;
+  text-align: center;
+  font-weight: 900;
+  padding: 40px 0;
+}
+
+.contact_img_man{
+  width: 300px;
+}
+
+.burger_col{
+  width: 50px;
+  position: absolute;
+  top: 0;
+}
+.contect_text_1,
+.contect_2,
+.contact_3{
+  flex-direction: column;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+}
+.contect_text_1 h1,
+.contact_3 h1{
+  flex-direction: column;
+  color: white;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.soda{
+  position: absolute;
+  bottom: 2rem;
+  left: 0rem;
+}
+
+.contct_s{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+.contct_s img{
+  width: 30px;
+  transition: all .4s;
+}
+
+.contct_s img:hover{
+  transform: scale(1.1)
+}
+
+@media screen and (max-width: 800px){
+  .contact_card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 50px;
+    position: relative;
+    text-align: center;
+  }
+
+  .burger_col{
+    width: 50px;
+    position: absolute;
+    top: 0;
+    left: 1rem;
+  }
+
+  .soda{
+    position: absolute;
+    bottom: 13rem;
+    right: 2rem;
+  }
+}
+
+/*=============== FOOTER ===============*/
+.footer_text{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 100px;
+}
+
+.footer_text a{
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.footer__copy p{
+  color: var(--text-color);
+  text-align: center;
+  font-weight: 600;
+  font-size: 13px;
+  margin: 40px 0;
+
+}
+
+/*=============== SCROLL BAR ===============*/
+
+
+/*=============== SCROLL UP ===============*/
+.sroll_Up{
+  color: black;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  position: fixed;
+  bottom: 2rem;
+  right: -3rem;
+  cursor: pointer;
+  transition: all .4s;
+  scroll-behavior: smooth;
+}
+
+/* Show Scroll Up */
+.show{
+  right: 3rem;
+}
+
+/*=============== BREAKPOINTS ===============*/
+/* For small devices */
+
+
+/* For medium devices */
+
+
+/* For large devices */
